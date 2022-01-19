@@ -1,0 +1,113 @@
+
+@media screen and (min-width:520px) and (max-width:775px) {
+    .autocomplete-items {
+        padding-left: 22%;
+        border-bottom: none;
+        border-top: none;
+        z-index: 0;
+        width: 46%;
+        height: auto;
+        overflow: auto;
+      }
+
+    .introduction{
+        display: flex;
+        justify-content:center;
+        flex-direction: column;
+        align-items: center;
+        height: 600px;
+    }
+    .presentation{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        padding: 20px;
+    }
+    h2{
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+    #vector-main{
+        width: 350px;
+        height: 350px;
+    }
+    #intr-text{
+        text-align: center;
+        width: fit-content;
+        line-height: 25px;
+        white-space: nowrap;
+    }
+    .tech-section{
+        display: grid ;
+        grid-template-columns: repeat(2, 250px);
+        gap: 20px 0px;    
+        justify-items: center;
+        width: auto;
+    }
+    .tech-cards{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border: 0.25px solid gray;
+        height: auto;
+        width: 55%;
+        justify-content: flex-start;
+        box-shadow: 4px 2px 6px 1px rgba(0, 0, 0, 0.953);
+    }
+    
+    .tech-cards:nth-child(5){
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        border: 0.25px solid gray;
+        height: auto;
+        width: 168px;
+        grid-column: 1/3;
+    }
+    .img-tech-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        margin-bottom: -30px;
+    }
+    
+    #card-desc{
+        display: flex;
+        font-size: 12px;
+        text-align: center;
+        position:relative;
+        top: 15px;
+    }
+    
+    .tech-iconss{
+        width: 69px;
+        height: 69px;
+    }
+    .foooter{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        height: auto;
+        position: sticky;
+        bottom: 0%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .social-media{
+        display: flex;
+        align-items: center;
+    }
+    
+    .social-media-icons{
+        width: 30px; height: 30px;
+        padding-right: 5px;
+    }
+    #first-name{
+        padding-right: 25px;
+    }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="/public/index.css">
+    <link rel="stylesheet" href="/public/results-css.css">
+    <link rel="stylesheet" href="/public/tb-results-css.css">
+    <link rel="stylesheet" href="/public/mbs-results-css.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.11.0/css/ol.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.11.0/build/ol.js"></script>
+</head>
+
+<body>
+    <div class="warning-space">
+        I used openstreetmaps to do this because the geocoding api from google maps it's no longer free, so may some
+        directions are not located because of the OSM limitations.
+    </div>
+    <header class="res-header">
+        <h2>SF-FILMS</h2>
+        <ul>
+            <li style="display: flex; align-items: center;"><img style="width: 25px; height: 25px; margin-right: 5px;"
+                    src="https://img.icons8.com/ios-filled/50/000000/circled-left-2.png" /> <a href="/">Go back</a></li>
+        </ul>
+    </header>
+
+    <nav class="res-nav">
+        <h2>Film results</h2>
+    </nav>
+
+    <div class="res-content">
+        <div class="scroll-res">
+            <span class="subtitle">Title: <span class="content">
+                    <%=ejsObj[0].title%>
+                </span></span>
+            <span class="subtitle">Release Year: <span class="content">
+                    <%=ejsObj[0].release_year%>
+                </span></span>
+            <ul class="unpadding-list">
+                <span class="subtitle">Locations:</span>
+                <%for(let i=0;i<Object.keys(ejsObj).length;i++){%>
+                    <li class="list-dots"><span class="content"><%=ejsObj[i].locations%></span></li>
+                <%}%>
+            </ul>
+            <span class="subtitle">Fun facts: <span class="content">
+                    <%=ejsObj[0].fun_facts%>
+                </span></span>
+            <span class="subtitle">Distributes by: <span class="content">
+                    <%=ejsObj[0].production_company%>
+                </span></span>
+            <span class="subtitle">Director: <span class="content">
+                    <%=ejsObj[0].director%>
+                </span></span>
+            <span class="subtitle">Actors: <span class="content">
+                    <%=ejsObj[0].actor_1%>, <%=ejsObj[0].actor_2%>, <%=ejsObj[0].actor_3%>
+                </span></span>
+        </div>
+        <div class="map-area" id="map" loading="lazy">
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([-122.419906, 37.7790262]),
+                zoom: 12
+            })
+        });
+        let fetchRes = []
+        let promises = []
+        let mapObj =<%-JSON.stringify(ejsObj) %>
+        for (let i = 0; i < Object.keys(mapObj).length; i++) {
+            console.log(encodeURIComponent(mapObj[i].locations))
+            promises.push(fetch(`https://nominatim.openstreetmap.org/search/${encodeURIComponent(mapObj[i].locations)}%20San%20Francisco?format=json&addressdetails=1&limit=1&polygon_svg=1`));
+        }
+        //  Promise.all(promises).then(response => if (response.ok) { console.log(response.json()}).catch(err => { console.log(err) });
+
+        Promise.all(promises).then(response => {
+            return response.map(res => {
+                if (res.ok) return res.json()
+                throw new Error(res.statusText)
+            })
+        }).then(data => {
+            Promise.all(data).then(lonlat => {
+                console.log(lonlat.length)
+                for (let i = 0; i < 3; i++) {
+                    var vectorLayer = new ol.layer.Vector({
+              source: new ol.source.Vector({
+                  features: [new ol.Feature({
+                      geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lonlat[i][0].lon), parseFloat(lonlat[i][0].lat)], 'EPSG:4326', 'EPSG:3857')),
+                  })]
+              }),
+              style: new ol.style.Style({
+                  image: new ol.style.Icon({
+                      anchor: [0.5, 0.5],
+                      anchorXUnits: "fraction",
+                      anchorYUnits: "fraction",
+                      src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg"
+                  })
+              })
+          });
+          map.addLayer(vectorLayer);
+          map.updateSize();
+                    
+                }
+
+            }).catch(err => {
+                console.log(err)
+            })
+        })
+
+
+
+
+
+                //desde el template engine tendras que setear la longitud y latitud cuando hagas la peticion desde express
+        /*  var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([-122.419906, 37.7790262]),
+                zoom: 12
+            })
+        });
+
+
+          var vectorLayer = new ol.layer.Vector({
+              source: new ol.source.Vector({
+                  features: [new ol.Feature({
+                      geometry: new ol.geom.Point(ol.proj.transform([parseFloat(dos[0].lon), parseFloat(dos[0].lat)], 'EPSG:4326', 'EPSG:3857')),
+                  })]
+              }),
+              style: new ol.style.Style({
+                  image: new ol.style.Icon({
+                      anchor: [0.5, 0.5],
+                      anchorXUnits: "fraction",
+                      anchorYUnits: "fraction",
+                      src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg"
+                  })
+              })
+          });
+          map.addLayer(vectorLayer);
+          map.updateSize();*/
+
+
+
+        /*    var map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([dos[0].lon, dos[0].lat]),
+                    zoom: 12
+                })
+            });*/
+
+
+
+
+    </script>
+
+</body>
+
+</html>

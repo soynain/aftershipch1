@@ -1,0 +1,23 @@
+@media screen and (min-width:520px) and (max-width:775px) {
+    .res-content{
+        height: 545px;
+        display: flex;
+        flex-direction: column;
+    }
+    .scroll-res{
+        width: auto;
+        height: 94%;
+        padding: 15px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #05668D;
+    }
+    .map-area{
+        width: auto;
+        height: 99%;
+        border: 2px solid black;
+    }
+
+}

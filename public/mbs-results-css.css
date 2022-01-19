@@ -1,0 +1,39 @@
+@media screen and (max-width:519px)  {
+    .res-header{
+        background: linear-gradient(to right, #05668D, #00A896,#F0F3BD);
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .res-content{
+        height: 545px;
+        display: flex;
+        flex-direction: column;
+    }
+    .scroll-res{
+        width: auto;
+        height: 94%;
+        padding: 15px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #05668D;
+    }
+    .map-area{
+        width: auto;
+        height: 99%;
+        border: 2px solid black;
+    }
+    .subtitle{
+        color: #0cffe7;
+        font-weight:900;
+        font-size: 13px;
+    }
+    .content{
+        color: rgb(255, 255, 255);
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+}

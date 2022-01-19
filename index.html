@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF-Films practice</title>
+    <link rel="stylesheet" href="./public/index.css">
+    <link rel="stylesheet" href="./public/tablet-style.css">
+    <link rel="stylesheet" href="./public/mobile-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital@0;1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h2>SF-FILMS</h2>
+        <ul>
+            <li>Search movie</li>
+            <li>About</li>
+        </ul>
+    </header>
+    <div class="introduction">
+        <div class="vector-img-cont">
+            <img src="./public/polar-film-show.png" alt="vector-img" id="vector-main">
+        </div>
+        <div class="presentation">
+            <h2 style=" color: #03ffc8;  text-shadow: 0 0 15px #0c0c0c, 0 0 15px #0f0f0f;">Welcome!!</h2>
+            <p id=intr-text>This is a Github backend challenge to query movie data <br>
+                from an api of San Francisco, you can search any <br>
+                movie filmed in San Francisco and you'll obtain<br>
+                some interesting data an a map with it's location. <br>
+                Feel free to play with my small project.
+            </p>
+        </div>
+    </div>
+
+    <div class="search-section">
+        <h3 style="padding: 0; margin: 0; padding-top: 20px;">Check it out</h3>
+        <div class="search-container">
+            <button onclick="getMovie()" id="search-btn">
+                <img src="https://img.icons8.com/windows/32/000000/movie.png" />
+                <span>Search movie</span>
+            </button>
+            <input type="search" name="name" id="search-txt"
+                placeholder="Type any movie eg: 'Café Trieste, Randall Museum, etc' ">
+        </div>
+      
+    </div>
+
+
+    <div class="tech-container">
+        <h3 style="text-align: center;">Technologies i have used for developing this challenge</h3>
+        <div class="tech-section">
+            <div class="tech-cards">
+                <div class="img-tech-container">
+                    <img src="https://img.icons8.com/fluency/48/000000/node-js.png" class="tech-iconss" />
+                </div>
+                <p id="card-desc">I used this platform as my backend plattform because
+                    it's easy and confortable to work with, besides
+                    its main advantage is that you code the backend logic
+                    in javascript, making the learning curve lower.
+                </p>
+            </div>
+            <div class="tech-cards">
+                <div class="img-tech-container">
+                    <img src="./public/expressjs-icon.png" class="tech-iconss" alt="icon" srcset="">
+                </div>
+                <p id="card-desc"><span id="low-text">It's a friendly framework with well written documentation
+                        available, easy to configure and use for a diversity
+                        of projects.</span>
+                </p>
+            </div>
+            <div class="tech-cards">
+                <div class="img-tech-container">
+                    <img src="https://img.icons8.com/color/48/000000/javascript--v2.png" class="tech-iconss" />
+                </div>
+                <p id="card-desc">In this challenge it wasn't important to apply
+                    concepts or knowledge about front-end frameworks, so in this
+                    case just for the search button fuctionality i used
+                    Vanilla JS
+                </p>
+            </div>
+            <div class="tech-cards">
+                <div class="img-tech-container">
+                    <img src="https://img.icons8.com/color/48/000000/html-5--v1.png" class="tech-iconss" />
+                </div>
+                <p id="card-desc">HTML 5 was used to design the website's skeleton.
+                </p>
+            </div>
+            <div class="tech-cards">
+                <div class="img-tech-container">
+                    <img src="https://img.icons8.com/color/48/000000/css3.png" class="tech-iconss" />
+                </div>
+                <p id="card-desc">And last, pure css was used here to practice some
+                    backend concepts like grid and flexbox
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="foooter">
+        <div class="owner-legend">
+            Made with ❤ by Moisés Guzmán
+        </div>
+        <div class="social-media">
+            <img src="https://img.icons8.com/ios/50/000000/instagram-new--v3.png" class="social-media-icons" /><span
+                id="first-name">sotogz_</span>
+            <img src="./public/GitHub-Mark-32px.png" class="social-media-icons"">soynain
+        </div>
+    </div>
+    <script>
+        var titlesArray = [];
+        const getJsonForAutocomplete = async () => {
+            const res = await fetch('https://data.sfgov.org/resource/yitu-d5am.json');
+            const resjson = res.json();
+            return resjson;
+        }
+
+        window.onload = async () => {
+            let getPromiseResult = await getJsonForAutocomplete();
+            let filterForNames = getPromiseResult.map((i) => {
+                return i.title;
+            })
+            titlesArray = Array.from(new Set(filterForNames));
+            console.log(titlesArray)
+        }
+
+        const boxSuggester = document.getElementById('search-txt');
+        const searchSection = document.getElementsByClassName('search-section')[0]
+        boxSuggester.addEventListener('input', () => {
+            console.log('dick')
+            let currChars = boxSuggester.value;
+            deleteSuggesters()
+            if (!currChars) { return false; }
+            let a = document.createElement('div');
+            a.setAttribute('id', boxSuggester.id + ' autocomplete-list');
+            a.setAttribute('class', 'autocomplete-items');
+            // boxSuggester.parentNode.appendChild(a);
+            searchSection.insertAdjacentElement('beforeend', a)
+
+            for (let i = 0; i < titlesArray.length; i++) {
+                //  console.log(titlesArray[i].substr(0,currChars.length))
+                if (titlesArray[i].substr(0, currChars.length).toUpperCase() == currChars.toUpperCase()) {
+                    let b = document.createElement('div'); 
+                    b.innerHTML = '<strong>' + titlesArray[i] + '</strong>';
+                    b.addEventListener('click', () => {
+                        boxSuggester.value = titlesArray[i]
+                        deleteSuggesters()
+                    })
+                    a.appendChild(b);
+                }
+            }
+        });
+
+        function deleteSuggesters() {
+            let divsToBeEliminated = document.getElementsByClassName('autocomplete-items')
+            Array.prototype.forEach.call(divsToBeEliminated, (currentDiv, i) => {
+                divsToBeEliminated[i].parentNode.removeChild(divsToBeEliminated[i])
+            })
+        }
+
+        function getMovie() {
+            const txt = document.getElementById('search-txt').value; console.log(txt);
+            window.location.href = `/results/${txt}`;
+        }
+    </script>
+</body>
+
+</html>

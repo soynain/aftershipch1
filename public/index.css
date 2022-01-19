@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+body{
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top:0;
+    background-color: white;
+}
+
+h2{
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li{
+    display: inline-block;
+    padding: 20px;
+}
+
+ul{ 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+input{
+    border: 0; 
+}
+
+.autocomplete-items {
+    padding-left: 10%;
+    border-bottom: none;
+    border-top: none;
+    z-index: 0;
+    width: 46%;
+    height: auto;
+    overflow: auto;
+  }
+  
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+  }
+  
+  /*when hovering an item:*/
+  .autocomplete-items div:hover {
+    background-color: #e9e9e9; 
+  }
+  
+  /*when navigating through the items using the arrow keys:*/
+  .autocomplete-active {
+    background-color: DodgerBlue !important; 
+    color: #ffffff; 
+  }
+
+
+.introduction{
+    display: flex;
+    justify-content:left;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 600px;
+    background: linear-gradient(to right, #05668D, #00A896,#F0F3BD);
+}
+
+#vector-main{
+    width: 367px;
+    height: 400px;
+}
+
+.vector-img-cont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 71%;
+    flex-direction: row;
+}
+
+.presentation{
+    display: flex;
+    justify-content: left;
+    align-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#intr-text{
+    text-align: left;
+    width: fit-content;
+    line-height: 25px;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+
+.search-section{
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 70px;
+}
+
+.search-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    margin-top: 15px;
+}
+
+#search-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #d74e09;
+    cursor: pointer;
+}
+
+#search-txt{
+    width: 46%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid black;
+}
+.tech-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.tech-section{
+    display: grid ;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: auto;
+    gap: 15px 15px;
+    justify-content: center;
+    width: 47rem;
+}
+
+.tech-cards{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 0.25px solid gray;
+    height: auto;
+    width: 100%;
+    justify-content: flex-start;
+    box-shadow: 4px 2px 6px 1px rgba(0, 0, 0, 0.953);
+    border-radius: 5px;
+}
+
+.img-tech-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-bottom: -30px;
+
+    border-bottom-color: gray;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+#card-desc{
+    display: flex;
+    font-size: 12px;
+    text-align: center;
+    position:relative;
+    top: 15px;
+    padding: 5px;
+}
+
+.tech-iconss{
+    width: 69px;
+    height: 69px;
+}
+.foooter{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    height: auto;
+    position: sticky;
+    bottom: 0%;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: linear-gradient(to right, #05668D, #00A896,#F0F3BD);
+}
+.social-media{
+    display: flex;
+    align-items: center;
+}
+
+.social-media-icons{
+    width: 30px; height: 30px;
+    padding-right: 5px;
+}
+#first-name{
+    padding-right: 25px;
+}
+
